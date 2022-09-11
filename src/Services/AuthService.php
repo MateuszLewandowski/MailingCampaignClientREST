@@ -5,6 +5,7 @@ namespace MailingCampaign\Src\Services;
 use MailingCampaign\Src\Interfaces\AuthInterface;
 use MailingCampaign\Src\Interfaces\UserRepositoryInterface;
 use MailingCampaign\Src\Providers\ResponseMacroServiceProvider;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
@@ -26,7 +27,7 @@ final class AuthService implements AuthInterface
 
     public static function verify(): bool {
         try {
-            return isset(getallheaders()['api-token']);
+            return Request::createFromGlobals()->headers->get('api-token', false) === false;
         } catch (Throwable $e) {
             exit(
                 ResponseMacroServiceProvider::api(
