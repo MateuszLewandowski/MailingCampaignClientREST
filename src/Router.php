@@ -31,8 +31,6 @@ final class Router
 
     public static function post(string $route, array $action) 
     {
-        ResponseMacroServiceProvider::api(200, [$_POST, $_GET]);
-        die;
         $match = URIParamsBinder::match($route, $GLOBALS['request_uri']);
         if ($match === false) {
             return null;

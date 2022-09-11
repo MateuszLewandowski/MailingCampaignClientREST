@@ -23,7 +23,7 @@ try {
      *      If id === 2     HTTP/1.0 404 Not Found
      */
 
-    // $client->getMailingCampaign(id: 1);
+    $client->getMailingCampaign(id: 1);
 
     /**
      * Return campaings by ID
