@@ -7,7 +7,7 @@ use PDOException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
-final class RESTClientCampaignControllerTest extends TestCase
+final class RESTClientCampaignTest extends TestCase
 {
     public function testGetMailingCampaignsListExpectSuccess() 
     {
