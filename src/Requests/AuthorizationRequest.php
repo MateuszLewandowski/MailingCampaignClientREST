@@ -2,6 +2,9 @@
 
 namespace MailingCampaign\Src\Requests;
 
+use MailingCampaign\Src\Providers\ResponseMacroServiceProvider;
+use Symfony\Component\HttpFoundation\Response;
+
 class AuthorizationRequest extends AbstractRequest
 {
     public string $login;
@@ -14,6 +17,16 @@ class AuthorizationRequest extends AbstractRequest
             if (property_exists($this, $key) and $value !== null) {
                 $this->{$key} = $value;
             }
+        }
+        if (!isset($this->login) or !isset($this->password)) {
+            exit(
+                ResponseMacroServiceProvider::api(
+                    status: Response::HTTP_UNPROCESSABLE_ENTITY,
+                    result: [
+                        'error' => 'Wrong credentials.',
+                    ]
+                )
+            );
         }
         // validation for login and password.
     }

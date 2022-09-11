@@ -4,6 +4,9 @@ namespace MailingCampaign\Src\Services;
 
 use MailingCampaign\Src\Interfaces\AuthInterface;
 use MailingCampaign\Src\Interfaces\UserRepositoryInterface;
+use MailingCampaign\Src\Providers\ResponseMacroServiceProvider;
+use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 final class AuthService implements AuthInterface
 {
@@ -22,6 +25,17 @@ final class AuthService implements AuthInterface
     }
 
     public static function verify(): bool {
-        return isset(apache_request_headers()['api-token']);
+        try {
+            return isset(apache_request_headers()['api-token']);
+        } catch (Throwable $e) {
+            exit(
+                ResponseMacroServiceProvider::api(
+                    status: Response::HTTP_INTERNAL_SERVER_ERROR,
+                    result: [
+                        'error' => 'Missing apache request header function: ' . $e->getMessage(),
+                    ]
+                )
+            );
+        }
     }
 }
