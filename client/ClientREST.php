@@ -11,8 +11,8 @@ final class ClientREST extends AbstractClientREST
     public function __construct(
     ) {
         parent::__construct(
-            // api: 'http://localhost/ZadanieRekrutacyjneMerce/'
-            api: 'https://merce-task.herokuapp.com/'
+            api: 'http://localhost/ZadanieRekrutacyjneMerce/'
+            // api: 'https://merce-task.herokuapp.com/'
         );
     }
 
@@ -21,14 +21,14 @@ final class ClientREST extends AbstractClientREST
         return $this->sendRequest('GET', 'campaigns', [], [], $headers);
     }
 
-    public function getMailingCampaign(int $id): Response
+    public function getMailingCampaign(int $id, array $headers = []): Response
     {
-        return $this->sendRequest('GET', "campaigns/{$id}");
+        return $this->sendRequest('GET', "campaigns/{$id}", [], [], $headers);
     }
 
-    public function createMailingCampaign(array $post): Response
+    public function createMailingCampaign(array $post, array $headers = []): Response
     {
-        return $this->sendRequest('POST', "campaigns", [], $post);
+        return $this->sendRequest('POST', "campaigns", [], $post, $headers);
     }
     
     public function sendRequest(string $method = "GET", string $uri = '/', array $args = [], array $post = [], array $headers = []): Response
