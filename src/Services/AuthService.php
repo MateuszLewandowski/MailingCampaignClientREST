@@ -26,7 +26,7 @@ final class AuthService implements AuthInterface
 
     public static function verify(): bool {
         try {
-            return isset(apache_request_headers()['api-token']);
+            return isset(getallheaders()['api-token']);
         } catch (Throwable $e) {
             exit(
                 ResponseMacroServiceProvider::api(
