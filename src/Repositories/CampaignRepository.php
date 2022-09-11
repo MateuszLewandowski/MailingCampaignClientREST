@@ -21,7 +21,6 @@ final class CampaignRepository implements RepositoryInterface
             throw new RuntimeException('Log file does not exists!', Response::HTTP_INTERNAL_SERVER_ERROR);
         }
         if (!is_writable($file)) {
-            
             if (shell_exec('chmod 0777') === null) {
                 throw new RuntimeException('Log file can not be writable.', Response::HTTP_INTERNAL_SERVER_ERROR);
             }

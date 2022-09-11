@@ -2,6 +2,7 @@
 
 namespace MailingCampaign\Src\Services;
 
+use MailingCampaign\Src\Factories\CampaignDTOFactory;
 use MailingCampaign\Src\Interfaces\RepositoryInterface;
 use MailingCampaign\Src\Interfaces\ServiceInterface;
 use MailingCampaign\Src\Models\CampaignDTO;
@@ -25,21 +26,15 @@ final class CampaignService implements ServiceInterface
         if (empty($campaigns)) {
             return [];
         }
-        $result = [];
-        foreach ($campaigns as $campaign) {
-            $result[] = new CampaignDTO(
-                id: $campaign['id'],
-                name: $campaign['name'],
-                mailing_list: $campaign['mailing_list'],
-            );
-        }
-        return $result;
+        return CampaignDTOFactory::createCollection(
+            args: $campaigns
+        );
     }
 
     public function show(int $id): CampaignDTO|null {
         $campaign = $this->campaignRepository->find($id);
         return $campaign
-            ? new CampaignDTO(...$campaign)
+            ? CampaignDTOFactory::create($campaign)
             : null;
     }
 
@@ -49,11 +44,9 @@ final class CampaignService implements ServiceInterface
             mailing_list: $mailing_list
         );
         return $id > 0
-            ? new CampaignDTO(
-                id: $id,
-                name: $name, 
-                mailing_list: $mailing_list
-            )
+            ? CampaignDTOFactory::create([
+                $id, $name, $mailing_list
+            ])
             : false;
     }
 
@@ -67,11 +60,9 @@ final class CampaignService implements ServiceInterface
             mailing_list: $mailing_list
         );
         return $updated
-            ? new CampaignDTO(
-                id: $id,
-                name: $name, 
-                mailing_list: $mailing_list
-            )
+            ? CampaignDTOFactory::create([
+                $id, $name, $mailing_list
+            ])
             : false;
     }
 
