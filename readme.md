@@ -1,4 +1,4 @@
-## Wprowadzenie
+# Wprowadzenie
 
 W ramach zadania zaimplementowano klienta REST oraz przykładowe API. API uruchamiane z wykorzystaniem routingu zawiera komplet metod (GET, POST, PUT, PATCH oraz DELETE), które można wywoływać, gdy w nagłówku rządania zawarty jest api-token (dla implementacji przykładu), wg definicji:
 
@@ -17,18 +17,18 @@ W kliencie zaimplementowano trzy metody:
 2. getMailingCampaign
 3. createMailingCampaign
 
-# Repozytorium: 
+## Repozytorium: 
 https://github.com/MateuszLewandowski/MailingCampaignClientREST
 
-# Aplikacja
+## Aplikacja
 https://merce-task.herokuapp.com/
 
-## Obsługa
+# Obsługa
 1. Plik index.php zawiera wywołanie autoloadera oraz routingu, który z kolei wywołuje odpowiednie metody w kontrolerze.
 2. client.php zawiera wywowanie ClientREST, gdzie można testować manualnie zaimplementowane metody.
 3. Testy jednostkowe - obsługa testów wybranych kilku funkcjonalności oraz samego klienta, który wykonuje curl'a na index.php celem symulacji zachowania api oraz klienta restowego.
 
-## Klient
+# Klient
 Do obsługi klienta zostały wykorzystane:
 1. symfony/http-foundation
 2. psr/http-message
@@ -36,14 +36,14 @@ Do obsługi klienta zostały wykorzystane:
 Dodatkowo wykorzystano apix/log do przykładowej obsługi PSR-3.
 Potencjalnie można także doposażyć kod o mechanizm cache'owania PSR-16 np. Redis.
 
-## Testy
+# Testy
 W celu sprawdzenia poprawności kodu zostały napisane testy jednostkowe, które pokryły najwrażliwsze elementy aplikacji, tj.:
 1. Utworzenie obiektu CampaignDto
 2. Wywołanie metod z repozytorium i serwisu Campaign Service & Repository
 3. Autoryzacja (login i hasło) + autentykacja JWT
 4. Testy - reprezentujące bardziej przypadki użycia - RESTClientCampaignTest, służący do wywołania metod klienta.
 
-## Request lifecycle
+# Request lifecycle
 1. Inicjalizacja autoloadera, kernel i route w index.php, gdzie Kernel odpowiada wyłącznie za dodanie typu metody rest i uri do globalnego scope'a.
 2. Plik route.php wywołuje metody statyczne z klasy Route, przekazując route path i wywołane uri.
 3. Route odpowiada za wywołaniej pary kontroler::metoda, dodatkowo zaimplementowano dependency injection dla konstruktora i metod przyjmujących Requesty
