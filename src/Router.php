@@ -107,4 +107,17 @@ final class Router
             //
         }
     }
+
+    public static function fallback() {
+        exit(
+            new Response(
+                content: 'Endpoint not found.',
+                status: Response::HTTP_NOT_FOUND,
+                headers: array_merge(
+                    ['content-type' => 'application/json'],
+                    //
+                ),
+            )
+        );
+    }
 }

@@ -13,29 +13,8 @@ try {
     require_once './vendor/autoload.php';
     require_once './src/kernel.php';
     require_once './src/route.php';
-
-    exit(
-        new Response(
-            content: 'Endpoint not found.',
-            status: Response::HTTP_NOT_FOUND,
-            headers: array_merge(
-                ['content-type' => 'application/json'],
-                //
-            ),
-        )
-    );
-
 } catch (Throwable $e) {
-    exit(
-        new Response(
-            content: $e->getMessage(),
-            status: $e->getCode(),
-            headers: array_merge(
-                ['content-type' => 'application/json'],
-                //
-            ),
-        )
-    );
+    //
 }
 
 
