@@ -8,7 +8,6 @@ use MailingCampaign\Src\Helpers\URIParamsBinder;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 use Exception;
-use MailingCampaign\Src\Providers\ResponseMacroServiceProvider;
 
 final class Router 
 {
@@ -91,13 +90,16 @@ final class Router
     {
         try {
             [$class, $method] = $action; 
+
             if (!class_exists($class) or !method_exists($class, $method)) {
                 throw new Exception('Controller or method does not exists.', Response::HTTP_NOT_IMPLEMENTED);
             }
+
             $resolver = new ReflectionControllerResolver();
             $controller = $resolver->resolveAutomaticDependencyInjection($class);
             $properties = $resolver->getMethodDependencies($class, $method);
             $args = DuplicateArgumentsHandler::cleanup(array_merge($properties, $args));
+
             exit(
                 $args
                     ? $controller->{$method}(...$args)

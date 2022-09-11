@@ -20,13 +20,14 @@ abstract class AbstractClientREST
         $this->curl = curl_init();
     }
 
-    abstract public function sendRequest(string $method, string $uri = '/', array $args = [], array $post = []): Response;
+    abstract public function sendRequest(string $method, string $uri = '/', array $args = [], array $post = [], array $headers = []): Response;
 
-    protected function request(string $method, string $uri, array $args = [], array $post = []): Response
+    protected function request(string $method, string $uri, array $args = [], array $post = [], array $headers = []): Response
     {
-        $headers = [
+        $request_headers = [
             'api-token: ' . include 'mock/jwt.php',
-            'Accept: */*'
+            'Accept: */*',
+            ...$headers
         ];
         curl_setopt($this->curl, CURLOPT_URL, $this->buildURL($uri, $args + $post));
         curl_setopt($this->curl, CURLOPT_RETURNTRANSFER, true);
@@ -41,12 +42,12 @@ abstract class AbstractClientREST
             curl_setopt($this->curl, CURLOPT_POST, true);
             $encoded = json_encode($post);
             curl_setopt($this->curl, CURLOPT_POSTFIELDS, $encoded);
-            $headers[] = 'Content-Type: application/json; charset=UTF-8';
-            $headers[] = 'Content-Length: ' . strlen($encoded);
+            $request_headers[] = 'Content-Type: application/json; charset=UTF-8';
+            $request_headers[] = 'Content-Length: ' . strlen($encoded);
         } else {
-            $headers[] = 'Content-type: application/json; charset=UTF-8';
+            $request_headers[] = 'Content-type: application/json; charset=UTF-8';
         }
-        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($this->curl, CURLOPT_HTTPHEADER, $request_headers);
         $response = curl_exec($this->curl);
         $status = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
         if ($response === false) {
