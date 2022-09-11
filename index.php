@@ -14,7 +14,7 @@ try {
     require_once './src/kernel.php';
     require_once './src/route.php';
 } catch (Throwable $e) {
-    //
+    echo $e->getCode() . ': ' . $e->getMessage();
 }
 
 
