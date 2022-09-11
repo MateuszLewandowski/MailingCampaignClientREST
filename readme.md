@@ -36,6 +36,13 @@ Do obsługi klienta zostały wykorzystane:
 Dodatkowo wykorzystano apix/log do przykładowej obsługi PSR-3.
 Potencjalnie można także doposażyć kod o mechanizm cache'owania PSR-16 np. Redis.
 
+## Testy
+W celu sprawdzenia poprawności kodu zostały napisane testy jednostkowe, które pokryły najwrażliwsze elementy aplikacji, tj.:
+1. Utworzenie obiektu CampaignDto
+2. Wywołanie metod z repozytorium i serwisu Campaign Service & Repository
+3. Autoryzacja (login i hasło) + autentykacja JWT
+4. Testy - reprezentujące bardziej przypadki użycia - RESTClientCampaignTest, służący do wywołania metod klienta.
+
 ## Request lifecycle
 1. Inicjalizacja autoloadera, kernel i route w index.php, gdzie Kernel odpowiada wyłącznie za dodanie typu metody rest i uri do globalnego scope'a.
 2. Plik route.php wywołuje metody statyczne z klasy Route, przekazując route path i wywołane uri.
@@ -46,4 +53,5 @@ Potencjalnie można także doposażyć kod o mechanizm cache'owania PSR-16 np. R
 A. wysłaniem do bazy danych
 B. zwróceniem do kontrolera.
 6. Repozytorium moża dla bardziej rozbudowanych rozwiązań zaimplementować w postaci CQRS. W tym przypadku jedna klasa wykonuje operacje oczytu i zapisu.
-
+7. Zwracana jest odpowiedź z wykorzystaniem symfony response
+8. W przypadku braku zgodniści URI zwracany jest komunikat 404
