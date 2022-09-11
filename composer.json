@@ -1,0 +1,16 @@
+{
+    "require": {
+        "symfony/http-foundation": "^6.1",
+        "apix/log": "^1.2",
+        "psr/http-message": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "autoload": {
+        "psr-4": {
+            "MailingCampaign\\Src\\": "./src",
+            "MailingCampaign\\Client\\": "./client"
+        }
+    }
+}
