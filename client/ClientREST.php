@@ -11,8 +11,8 @@ final class ClientREST extends AbstractClientREST
     public function __construct(
     ) {
         parent::__construct(
-            api: 'http://localhost/ZadanieRekrutacyjneMerce/'
-            // api: 'https://merce-task.herokuapp.com/'
+            // api: 'http://localhost/ZadanieRekrutacyjneMerce/'
+            api: 'https://merce-task.herokuapp.com/'
         );
     }
 
