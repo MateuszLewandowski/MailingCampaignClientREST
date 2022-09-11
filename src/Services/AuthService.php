@@ -27,7 +27,7 @@ final class AuthService implements AuthInterface
 
     public static function verify(): bool {
         try {
-            return Request::createFromGlobals()->headers->get('api-token', false) === false;
+            return Request::createFromGlobals()->headers->get('api-token', false) !== false;
         } catch (Throwable $e) {
             exit(
                 ResponseMacroServiceProvider::api(
